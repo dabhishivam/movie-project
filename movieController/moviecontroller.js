@@ -79,12 +79,24 @@ const trash = async (req, res) => {
 const update = async (req, res) => {
     const { id } = req.query
     console.log(id)
+    var arr = []
+    req.files.movie_image.forEach((image) => {
+        arr.push(image.filename)
+    });
+    console.log(arr);
+
+    // console.log(arr)
+    var singleimage = ""
+    if (req.files.thumbnail !== undefined) {
+        singleimage = req.files.thumbnail[0].filename
+    }
+    console.log(singleimage)
     try {
         const { movie_name, movie_price, movie_description } = req.body
         await Movie.findByIdAndUpdate(
             { _id: id },
             {
-                movie_name, movie_price, movie_description
+                movie_name, movie_price, movie_description, thumbnail: singleimage, movie_image: arr
             }
         )
         res.json({

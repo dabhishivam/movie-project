@@ -10,5 +10,5 @@ const multipleimage = [
 app.post('/', upload.fields(multipleimage), movieController.store)
 app.get('/', movieController.index)
 app.delete('/:id', movieController.trash)
-app.put('/', movieController.update)
+app.put('/',upload.fields(multipleimage), movieController.update)
 module.exports = app
